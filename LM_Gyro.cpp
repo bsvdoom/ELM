@@ -5,7 +5,7 @@
 
 
 bool LM_Gyro::begin() {
-  if (!bus) return;
+  if (!bus) return false;
   return startGyro();
   
 }
