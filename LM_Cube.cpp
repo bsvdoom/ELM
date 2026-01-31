@@ -1,7 +1,5 @@
 // #include "esphome.h"
 #include "LM_Cube.h"
-
-#include "Arduino.h"
 #include <math.h>
 
 
