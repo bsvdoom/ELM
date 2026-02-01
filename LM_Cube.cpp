@@ -23,7 +23,12 @@ void LM_Cube::process() {
 }
 
 
+void LM_Cube::update_leds(uint8_t topSide) {
+  // Placeholder for LED update logic
+  // This function should contain the code to update the LEDs based on the topSide parameter
 
+
+}
 
 
 void LM_Cube::getTopSide(float roll, float pitch) {

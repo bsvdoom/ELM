@@ -422,10 +422,10 @@ void LM_Gyro::getAres() {
 void LM_Gyro::initKalman(float accX, float accY, float accZ) {
 // Serial.print(F("Starting  kalman: "));
   /* Set kalman and gyro starting angle */
-  // while (i2cRead(0x3B, i2cData, 6));
-  // accX = (int16_t)((i2cData[0] << 8) | i2cData[1]);
-  // accY = (int16_t)((i2cData[2] << 8) | i2cData[3]);
-  // accZ = (int16_t)((i2cData[4] << 8) | i2cData[5]);
+  readBytes(0x3B, 6, i2cData);
+  accX = (int16_t)((i2cData[0] << 8) | i2cData[1]);
+  accY = (int16_t)((i2cData[2] << 8) | i2cData[3]);
+  accZ = (int16_t)((i2cData[4] << 8) | i2cData[5]);
 
   // float accX = id(mpu_accel_x).state;
   // float accY = id(mpu_accel_y).state;
@@ -466,15 +466,29 @@ void LM_Gyro::getAngle(float accX, float accY, float accZ, float gyroX, float gy
     // rollAngle = 0;
     // pitchAngle = 0;
     // return;
+    // }
+    //  
 
-    // while (i2cRead(0x3B, i2cData, 14));
-    // accX = (int16_t)((i2cData[0] << 8) | i2cData[1]);
-    // accY = (int16_t)((i2cData[2] << 8) | i2cData[3]);
-    // accZ = (int16_t)((i2cData[4] << 8) | i2cData[5]);
-    // tempRaw = (int16_t)((i2cData[6] << 8) | i2cData[7]);
-    // gyroX = (int16_t)((i2cData[8] << 8) | i2cData[9]);
-    // gyroY = (int16_t)((i2cData[10] << 8) | i2cData[11]);
-    // gyroZ = (int16_t)((i2cData[12] << 8) | i2cData[13]);;
+    //  i2c   
+    //        
+    //    
+    //    
+    uint8_t i2cData[14]; // Buffer for I2C data
+    readBytes(0x3B, 14, i2cData); // Read the 14 raw data registers into data array
+    accX = (int16_t)((i2cData[0] << 8) | i2cData[1]);
+    accY = (int16_t)((i2cData[2] << 8) | i2cData[3]);
+    accZ = (int16_t)((i2cData[4] << 8) | i2cData[5]);
+    tempRaw = (int16_t)((i2cData[6] << 8) | i2cData[7]);
+    gyroX = (int16_t)((i2cData[8] << 8) | i2cData[9]);
+    gyroY = (int16_t)((i2cData[10] << 8) | i2cData[11]);
+    gyroZ = (int16_t)((i2cData[12] << 8) | i2cData[13]);;
+
+    Serial.print(accX); Serial.print("\t");
+    Serial.print(accY); Serial.print("\t");
+    Serial.print(accZ); Serial.print("\t");
+    Serial.print(gyroX); Serial.print("\t");
+    Serial.print(gyroY); Serial.print("\t");  
+    Serial.print(gyroZ); Serial.print("\t");
 
     double dt = (double)(micros() - timer) / 1000000; // Calculate delta time
     timer = micros();
@@ -536,7 +550,7 @@ void LM_Gyro::getAngle(float accX, float accY, float accZ, float gyroX, float gy
       gyroYangle = kalAngleY;
 
     /* Print Data */
-    #if 0 // Set to 1 to activate
+    #if 1 // Set to 1 to activate
       Serial.print("\t");
       Serial.print(roll); Serial.print("\t");
       Serial.print(kalAngleX); Serial.print("\t");
@@ -553,6 +567,9 @@ void LM_Gyro::getAngle(float accX, float accY, float accZ, float gyroX, float gy
     
     rollAngle = kalAngleX;
     pitchAngle = kalAngleY;
+
+    // rollAngle = 3.0;
+    // pitchAngle = 4.0;
   
   // }
 

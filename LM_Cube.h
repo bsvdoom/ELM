@@ -19,6 +19,7 @@ public:
 
   void mapSides();
   void handleFlip();
+  void update_leds(uint8_t topSide);
 
   int8_t sideRemap[6] = DEFAULT_SIDE_REMAP;
   bool apMode=false;
