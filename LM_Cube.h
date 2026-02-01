@@ -1,7 +1,7 @@
 #pragma once
 #include "Arduino.h"
 
-#define DEFAULT_SIDE_REMAP {0, 1, 2, 3, 4, 5}
+#define DEFAULT_SIDE_REMAP {5, 4, 3, 2, 1, 0}
 
 class LM_Cube
 {
