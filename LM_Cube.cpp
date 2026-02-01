@@ -64,7 +64,7 @@ void LM_Cube::getTopSide(float roll, float pitch) {
     currentSideUnmapped = 1;
   }
 
-  topSideRaw = currentSideUnmapped;
+  topSideRaw = currentSideUnmapped - 1;
 
   mapSides();
 
@@ -72,8 +72,7 @@ void LM_Cube::getTopSide(float roll, float pitch) {
 
 
 void LM_Cube::mapSides() {
-  const int led_map[6] = {0, 2, 4, 1, 3, 5};
-  topSide = led_map[topSideRaw - 1] + 1;
+  topSide = sideRemap[topSideRaw];
 } 
 
 

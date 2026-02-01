@@ -422,10 +422,15 @@ void LM_Gyro::getAres() {
 void LM_Gyro::initKalman(float accX, float accY, float accZ) {
 // Serial.print(F("Starting  kalman: "));
   /* Set kalman and gyro starting angle */
+  
+  #ifdef GYRO_NATIVE_BIAS
+
   readBytes(0x3B, 6, i2cData);
   accX = (int16_t)((i2cData[0] << 8) | i2cData[1]);
   accY = (int16_t)((i2cData[2] << 8) | i2cData[3]);
   accZ = (int16_t)((i2cData[4] << 8) | i2cData[5]);
+
+  #endif
 
   // float accX = id(mpu_accel_x).state;
   // float accY = id(mpu_accel_y).state;
@@ -473,6 +478,9 @@ void LM_Gyro::getAngle(float accX, float accY, float accZ, float gyroX, float gy
     //        
     //    
     //    
+   
+    #ifdef GYRO_NATIVE_BIAS
+   
     uint8_t i2cData[14]; // Buffer for I2C data
     readBytes(0x3B, 14, i2cData); // Read the 14 raw data registers into data array
     accX = (int16_t)((i2cData[0] << 8) | i2cData[1]);
@@ -489,6 +497,8 @@ void LM_Gyro::getAngle(float accX, float accY, float accZ, float gyroX, float gy
     Serial.print(gyroX); Serial.print("\t");
     Serial.print(gyroY); Serial.print("\t");  
     Serial.print(gyroZ); Serial.print("\t");
+
+    #endif
 
     double dt = (double)(micros() - timer) / 1000000; // Calculate delta time
     timer = micros();

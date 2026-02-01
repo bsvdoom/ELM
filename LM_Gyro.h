@@ -11,6 +11,9 @@
 //#include "i2cFunctions.h"
 // #include <Wire.h>
 
+
+
+#define GYRO_NATIVE_BIAS
 // Define registers per MPU6050, Register Map and Descriptions, Rev 4.2, 08/19/2013 6 DOF Motion sensor fusion device
 // Invensense Inc., www.invensense.com
 // See also MPU-6050 Register Map and Descriptions, Revision 4.0, RM-MPU-6050A-00, 9/12/2012 for registers not listed in
